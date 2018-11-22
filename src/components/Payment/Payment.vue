@@ -22,6 +22,7 @@
               id="card-input"
               class="border-b border-grey-light w-full p-3 outline-none"
               placeholder="xxxx    xxxx    xxxx    xxxx"
+              v-mask="'####  ####  ####  ####'"
             />
           </div>
           <div class="mb-8 flex -mx-4">
@@ -33,6 +34,7 @@
                 id="expiry-input"
                 class="border-b border-grey-light w-full p-3 outline-none"
                 placeholder="MM / YY"
+                v-mask="'## / ##'"
               />
             </div>
             <div class="mx-4 w-1/2">
@@ -43,6 +45,7 @@
                 id="cvv-input"
                 class="border-b border-grey-light w-full p-3 outline-none"
                 placeholder="xxx"
+                v-mask="'####'"
               />
             </div>
           </div>
@@ -69,7 +72,8 @@
 </template>
 
 <script>
+import {mask} from 'vue-the-mask'
 export default {
-
+  directives: {mask}
 }
 </script>
