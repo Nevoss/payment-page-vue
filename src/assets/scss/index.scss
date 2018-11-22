@@ -1,0 +1,24 @@
+@tailwind preflight;
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900|Roboto+Mono:300,400');
+@tailwind components;
+
+body {
+  @apply bg-grey-lighter font-sans text-grey-darkest;
+}
+
+input::placeholder {
+  opacity: 0.25;
+}
+
+.mainBtn {
+  //background-color: ;
+}
+
+@responsive {
+  .bg-gradient-blue-to-light-blue {
+    background-image: linear-gradient(config('colors.blue'), config('colors.blue-light'));
+  }
+}
+
+@tailwind utilities;
