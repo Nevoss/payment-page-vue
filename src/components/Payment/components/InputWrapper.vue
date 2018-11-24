@@ -4,8 +4,19 @@
     <div class="relative">
       <slot />
       <transition name="error-icon-animation">
-        <div v-if="form.$errors.has(fieldKey)" class="h-full flex absolute pin-r pin-t items-center pr-2 text-red-light">
+        <div
+          v-if="form.$errors.has(fieldKey)"
+          class="h-full flex absolute pin-r pin-t items-center pr-2 text-red-light"
+          :key="'error'"
+        >
           <svg-icon icon="warning" class="w-4 fill-current"/>
+        </div>
+        <div
+          v-if="!form.$errors.has(fieldKey) && form.$extra[fieldKey].dirty && !form.$extra[fieldKey].focused"
+          :key="'success'"
+          class="h-full flex absolute pin-r pin-t items-center pr-2 text-green-light"
+        >
+          <svg-icon icon="checked" class="w-4 fill-current"/>
         </div>
       </transition>
     </div>
@@ -19,7 +30,7 @@
 
 <script>
   import {Form} from 'form-wrapper-js'
-  import SvgIcon from "../SvgIcon";
+  import SvgIcon from "../../common/SvgIcon";
 
   export default {
     components: {

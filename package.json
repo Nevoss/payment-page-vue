@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "card-validator": "^6.0.0",
-    "form-wrapper-js": "github:Nevoss/form-wrapper-js#feature/extra-prop",
+    "form-wrapper-js": "github:Nevoss/form-wrapper-js#dev",
     "tailwindcss": "^0.7.2",
     "vue": "^2.5.17",
     "vue-the-mask": "^0.11.1",

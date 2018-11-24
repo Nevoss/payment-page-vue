@@ -1,6 +1,7 @@
 @tailwind preflight;
 
 @import url('https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900|Roboto+Mono:300,400');
+
 @tailwind components;
 
 body {
@@ -11,14 +12,28 @@ input::placeholder {
   opacity: 0.25;
 }
 
-.mainBtn {
-  //background-color: ;
+.payment-btn {
+  @apply w-full block h-24 bg-gradient-blue-to-light-blue text-white text-2xl tracking-wide flex justify-center items-center;
+
+  &-icon {
+    transform: translateX(0px);
+    transition: 0.3s all;
+  }
+
+
+  &:hover {
+    .payment-btn-icon {
+      transform: translateX(5px);
+    }
+  }
+
 }
+
+
+@tailwind utilities;
 
 @responsive {
   .bg-gradient-blue-to-light-blue {
     background-image: linear-gradient(config('colors.blue'), config('colors.blue-light'));
   }
 }
-
-@tailwind utilities;

@@ -36,7 +36,7 @@
   import cardValidator from 'card-validator'
   import {mask} from 'vue-the-mask'
 
-  import SvgIcon from '../common/SvgIcon'
+  import SvgIcon from '../../common/SvgIcon'
 
   export default {
     directives: {
@@ -89,12 +89,12 @@
 
     &-enter {
       transform: translateY(-5px);
-      opacity: 0;
+      opacity: 0.3;
     }
 
     &-leave-to {
       transform: translateY(5px);
-      opacity: 0
+      opacity: 0.3;
     }
   }
 

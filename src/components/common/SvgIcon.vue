@@ -7,6 +7,7 @@
 <script>
   import RightArrow from '../../assets/images/icons/right-arrow.svg'
   import Warning from '../../assets/images/icons/warning.svg'
+  import Checked from '../../assets/images/icons/checked.svg'
   import CardVisa from '../../assets/images/icons/card-visa.svg'
   import CardMaster from '../../assets/images/icons/card-master.svg'
   import CardAmericanExpress from '../../assets/images/icons/card-american-express.svg'
@@ -19,7 +20,8 @@
       Warning,
       CardMaster,
       CardAmericanExpress,
-      CardDiscover
+      CardDiscover,
+      Checked,
     },
     props: {
       icon: {

@@ -11,6 +11,19 @@ export const required = {
 }
 
 /**
+ * checks if the value is at least "num" chars
+ *
+ * @param num
+ * @return {{passes: (function({value: *}): boolean), message: (function({label: *}): string)}}
+ */
+export const minChars = (num) => {
+  return {
+    passes: ({ value }) => value.length >= num,
+    message: ({ label }) => `${label} must be at least ${num} characters`
+  }
+}
+
+/**
  * checks if valid credit card
  *
  * @param value
