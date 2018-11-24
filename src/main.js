@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import {Form} from 'form-wrapper-js'
 
 import './assets/scss/index.scss'
 
 Vue.config.productionTip = false
+
+Form.defaults.validation.defaultMessage = ({label}) => `${label} must be valid.`
 
 new Vue({
   store,

@@ -12,59 +12,68 @@
           Budgei app subscription
         </p>
       </div>
-      <form>
+      <form
+        @submit.prevent="submit"
+        @keyup="form.$errors.clearField($event.target.name)"
+      >
         <div class="p-6 pt-10">
-          <div class="mb-8">
-            <label for="card-input" class="mb-1 block uppercase text-xs text-grey-dark tracking-wide"> Card Number </label>
-            <input
-              type="text"
-              name="card"
-              id="card-input"
-              class="border-b border-grey-light w-full p-3 outline-none"
-              placeholder="xxxx    xxxx    xxxx    xxxx"
-              v-mask="'####  ####  ####  ####'"
+          <input-wrapper :form="form" field-key="card" class="mb-10">
+            <card-input
+              v-model="form.card"
+              @blur="onInputBluer('card')"
+              @focus="form.$extra.card.focused = true"
+              :has-error="form.$errors.has('card')"
             />
-          </div>
-          <div class="mb-8 flex -mx-4">
-            <div class="mx-4 w-1/2">
-              <label for="expiry-input" class="mb-1 block uppercase text-xs text-grey-dark tracking-wide"> Expiry date </label>
+          </input-wrapper>
+          <div class="mb-10 flex -mx-4">
+            <input-wrapper :form="form" field-key="expiry" class="mx-4 w-1/2">
               <input
+                v-model="form.expiry"
+                @blur="onInputBluer('expiry')"
+                @focus="form.$extra.expiry.focused = true"
+                v-mask="'## / ##'"
                 type="text"
                 name="expiry"
-                id="expiry-input"
-                class="border-b border-grey-light w-full p-3 outline-none"
+                class="border-b w-full p-3 outline-none"
+                :class="form.$errors.has('expiry') ? 'border-red-lighter' : 'border-grey-light'"
                 placeholder="MM / YY"
-                v-mask="'## / ##'"
+                autocomplete="off"
               />
-            </div>
-            <div class="mx-4 w-1/2">
-              <label for="cvv-input" class="mb-1 block uppercase text-xs text-grey-dark tracking-wide"> Cvv </label>
+            </input-wrapper>
+            <input-wrapper :form="form" field-key="cvv" class="mx-4 w-1/2">
               <input
+                v-model="form.cvv"
+                @blur="onInputBluer('cvv')"
+                @focus="form.$extra.cvv.focused = true"
+                v-mask="'###'"
                 type="text"
                 name="cvv"
-                id="cvv-input"
-                class="border-b border-grey-light w-full p-3 outline-none"
+                class="border-b w-full p-3 outline-none"
+                :class="form.$errors.has('cvv') ? 'border-red-lighter' : 'border-grey-light'"
                 placeholder="xxx"
-                v-mask="'####'"
+                autocomplete="off"
               />
-            </div>
+            </input-wrapper>
           </div>
-          <div class="mb-8">
-            <label for="name-input" class="mb-1 block uppercase text-xs text-grey-dark tracking-wide"> Name </label>
+          <input-wrapper :form="form" field-key="name" class="mb-10">
             <input
+              v-model="form.name"
+              @blur="onInputBluer('name')"
+              @focus="form.$extra.name.focused = true"
               type="text"
               name="name"
-              id="name-input"
-              class="border-b border-grey-light w-full p-3 outline-none"
+              class="border-b w-full p-3 outline-none"
+              :class="form.$errors.has('name') ? 'border-red-lighter' : 'border-grey-light'"
               placeholder="Joe Doe"
+              autocomplete="off"
             />
-          </div>
+          </input-wrapper>
         </div>
         <button type="submit" class="w-full block h-24 bg-gradient-blue-to-light-blue text-white bold text-2xl tracking-wide flex justify-around items-center">
           <span>
-            CHECK OUT
+            PAY NOW
           </span>
-          <img src="../../assets/images/right-arrow.svg" class="w-8 pb-1">
+          <svg-icon icon="right-arrow" class="w-10"/>
         </button>
       </form>
     </div>
@@ -72,8 +81,73 @@
 </template>
 
 <script>
-import {mask} from 'vue-the-mask'
-export default {
-  directives: {mask}
-}
+  import {Form} from 'form-wrapper-js'
+  import {mask} from 'vue-the-mask'
+  import {required, creditCard, expiryDate, cvv} from "../../utils/rules";
+
+  import CardInput from './CardInput'
+  import SvgIcon from "../common/SvgIcon";
+  import InputWrapper from "../common/forms/InputWrapper";
+
+  export default {
+    directives: {mask},
+    components: {
+      InputWrapper,
+      SvgIcon,
+      CardInput,
+    },
+    data() {
+      return {
+        form: new Form({
+          card: {
+            value: null,
+            label: 'Card Number',
+            rules: [required, creditCard],
+            extra: {
+              focused: false
+            },
+          },
+          expiry: {
+            value: null,
+            label: 'Expiry Date',
+            rules: [required, expiryDate],
+            extra: {
+              focused: false
+            },
+          },
+          cvv: {
+            value: null,
+            label: 'CVV',
+            rules: [required, cvv],
+            extra: {
+              focused: false
+            },
+          },
+          name: {
+            value: null,
+            rules: [required],
+            extra: {
+              focused: false
+            },
+          },
+        })
+      }
+    },
+    methods: {
+
+      onInputBluer(fieldKey) {
+        this.form.validate(fieldKey)
+        this.form.$extra[fieldKey].focused = false
+      },
+
+      async submit() {
+        console.log(this.form.data())
+        // try {
+        //   await this.form.submit(() => null);
+        // } catch (e) {
+        //
+        // }
+      }
+    }
+  }
 </script>
