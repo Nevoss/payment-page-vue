@@ -7,7 +7,7 @@ import './assets/scss/index.scss'
 
 Vue.config.productionTip = false
 
-Form.defaults.validation.defaultMessage = ({label}) => `${label} must be valid.`
+Form.defaults.options.validation.defaultMessage = ({label}) => `${label} must be valid.`
 
 new Vue({
   store,

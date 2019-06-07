@@ -101,7 +101,7 @@
     },
     data() {
       return {
-        form: new Form({
+        form: Form.create({
           card: {
             value: null,
             label: 'Card Number',
@@ -142,8 +142,8 @@
     },
     methods: {
 
-      onInputBluer(fieldKey) {
-        this.form.validate(fieldKey)
+      async onInputBluer(fieldKey) {
+        await this.form.$validate(fieldKey)
         this.form.$extra[fieldKey].focused = false
         this.form.$extra[fieldKey].dirty = true
       },
@@ -153,12 +153,12 @@
           return
         }
 
-        this.form.$errors.clearField(event.target.name)
+        this.form.$errors.unset(event.target.name)
       },
 
       async submit() {
         try {
-          await this.form.submit(() => new Promise(resolve => setTimeout(() => resolve(), 3000)))
+          await this.form.$submit(() => new Promise(resolve => setTimeout(() => resolve(), 3000)))
 
           this.$emit('done')
 
